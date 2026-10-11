@@ -2,12 +2,12 @@ name: Deploy react
 on: 
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t veigo/react-test Dockerfile.dev .
+      - run: docker build -t veigo/react-test -f Dockerfile.dev .
       - run: docker run -e CI=true veigo/react-test npm run test
